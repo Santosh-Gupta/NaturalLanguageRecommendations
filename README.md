@@ -35,7 +35,7 @@ Description:
 #### [tpu_index.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/tpu_index.ipynb)
 Description: 
 
-### Scripts
+### Pyfiles
 #### [tfrecordwriter.py](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/pyfiles/TFrecordWriter.py)
 Description: 
 
