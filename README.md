@@ -21,7 +21,7 @@ Description:
 Description: This notebook was used to clean the original Open Corpus dataset to retain all papers that either had a PubMed id or were part of MedLine and had at least 1 citation. Cleaned medical data in folder linked above.
 
 #### [model.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/model.ipynb)
-Description: The trainig code for bert model can be found in this notebook, its designed to run on Google Cloud TPU v3-8
+Description: This notebook has the training code for BERT, which is designed to run on Google Cloud TPU v3-8.
 
 #### [pruning_first_pass.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/pruning_first_pass.ipynb)
 Description: This notebook pruned our filtered data meaning that it only kept papers in the cleaned dataset that either had a citation to or were cited by another paper in the cleaned data. Pruned data in folder linked above.
@@ -40,7 +40,7 @@ Description: The original Word2Vec model implemented in Keras.
 
 ### Python files
 #### [tfrecordwriter.py](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/src/TFrecordWriter.py)
-Description: A tfrecord writer class with utility functions for sharding the dataset
+Description: This file is a TFrecord writer class that has utility functions for sharing the dataset.
 
 #### [model.py](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/src/model.py)
-Description: The trainig code for bert model can be found in this script, its designed to run on Google Cloud TPU v3-8.
+Description: This is the training code for the BERT model, which is designed to run on Google Cloud TPU v3-8.
