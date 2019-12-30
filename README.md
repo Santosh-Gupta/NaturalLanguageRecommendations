@@ -6,8 +6,9 @@
 The papers used for this project were cleaned from Semantic Scholar's Open Corpus. 
 Link to the cleaned data used: https://drive.google.com/open?id=1PcdLDJUXoVXorlCTcGlM98GllArk5Z9s
 
+
 ### Notebooks
-#### build_index_and_search.ipynb
+#### [a relative link](build_index_and_search.ipynb)
 Description: 
 
 #### create_abstract_vectors.ipynb
