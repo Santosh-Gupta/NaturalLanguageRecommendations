@@ -9,7 +9,7 @@
 ### Architecture 
 
 <p align="center">
-  <img src="https://gfycat.com/imperfecttenderasp">
+  <img src="https://imgur.com/a/7stGQQx">
 </p>
 
 ### Paper Data
