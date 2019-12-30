@@ -6,6 +6,12 @@
   <img src="https://i.imgur.com/r7SZcEt.png">
 </p>
 
+### Architecture 
+
+<p align="center">
+  <img src="https://gfycat.com/imperfecttenderasp">
+</p>
+
 ### Paper Data
 The papers used for this project were cleaned from Semantic Scholar's Open Corpus. 
 Link to the cleaned data used: https://drive.google.com/open?id=1PcdLDJUXoVXorlCTcGlM98GllArk5Z9s
