@@ -1,6 +1,6 @@
 [![HitCount](http://hits.dwyl.io/Santosh-Gupta/NaturalLanguageRecommendations.svg)](http://hits.dwyl.io/Santosh-Gupta/NaturalLanguageRecommendations)
 
-# Natural Language Recommendations : Retrieve scientific papers using embeddings and transformer models. 
+# Natural Language Recommendations : A research paper search engine developed entirely with embedding and transformer models. 
 
 <p align="center">
   <img src="https://i.imgur.com/r7SZcEt.png">
