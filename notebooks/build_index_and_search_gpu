@@ -1,0 +1,616 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "accelerator": "GPU",
+    "colab": {
+      "name": "Copy of tpu index.ipynb",
+      "provenance": [],
+      "collapsed_sections": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "codemirror_mode": {
+        "name": "ipython",
+        "version": 3
+      },
+      "file_extension": ".py",
+      "mimetype": "text/x-python",
+      "name": "python",
+      "nbconvert_exporter": "python",
+      "pygments_lexer": "ipython3",
+      "version": "3.6.7"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/build_index_and_search_gpu\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab_type": "code",
+        "id": "8wAw2JV6F4Am",
+        "outputId": "85efb539-c60e-410e-a3dc-c12b2f47688e",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 476
+        }
+      },
+      "source": [
+        "!gdown --id \"10LV9QbZOkUyOzR4nh8hxesoKJhpmvpM9\"   # citation vectors\n",
+        "!gdown --id \"1-23aNm7j0bnycvyd_OaQfofVYPTewgOI\"   # abstract vectors\n",
+        "!gdown --id \"1-1HED-B-HtuZR9kNtybz9sypVpk2A_fX\"   # TitlesAbstractsEmbedIds\n",
+        "!wget 'https://s3-us-west-2.amazonaws.com/ai2-s2-research/scibert/huggingface_pytorch/scibert_scivocab_uncased.tar'\n",
+        "!tar -xvf 'scibert_scivocab_uncased.tar'"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Downloading...\n",
+            "From: https://drive.google.com/uc?id=10LV9QbZOkUyOzR4nh8hxesoKJhpmvpM9\n",
+            "To: /content/CitationSimilarityVectors106Epochs.npy\n",
+            "2.59GB [00:40, 64.2MB/s]\n",
+            "Downloading...\n",
+            "From: https://drive.google.com/uc?id=1-23aNm7j0bnycvyd_OaQfofVYPTewgOI\n",
+            "To: /content/AbstractSimVectors.npy\n",
+            "2.59GB [01:01, 42.1MB/s]\n",
+            "Downloading...\n",
+            "From: https://drive.google.com/uc?id=1-1HED-B-HtuZR9kNtybz9sypVpk2A_fX\n",
+            "To: /content/TitlesAbstractsEmbedIds.json.gzip\n",
+            "397MB [00:09, 40.2MB/s]\n",
+            "--2019-12-30 17:23:45--  https://s3-us-west-2.amazonaws.com/ai2-s2-research/scibert/huggingface_pytorch/scibert_scivocab_uncased.tar\n",
+            "Resolving s3-us-west-2.amazonaws.com (s3-us-west-2.amazonaws.com)... 52.218.252.64\n",
+            "Connecting to s3-us-west-2.amazonaws.com (s3-us-west-2.amazonaws.com)|52.218.252.64|:443... connected.\n",
+            "HTTP request sent, awaiting response... 200 OK\n",
+            "Length: 442460160 (422M) [application/x-tar]\n",
+            "Saving to: ‘scibert_scivocab_uncased.tar’\n",
+            "\n",
+            "scibert_scivocab_un 100%[===================>] 421.96M  22.9MB/s    in 20s     \n",
+            "\n",
+            "2019-12-30 17:24:05 (21.6 MB/s) - ‘scibert_scivocab_uncased.tar’ saved [442460160/442460160]\n",
+            "\n",
+            "scibert_scivocab_uncased/\n",
+            "scibert_scivocab_uncased/vocab.txt\n",
+            "scibert_scivocab_uncased/pytorch_model.bin\n",
+            "scibert_scivocab_uncased/config.json\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "JP2AqdEiQhbS",
+        "colab_type": "code",
+        "outputId": "726c3b46-4b2b-4464-f95c-7460ef0a33ba",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 85
+        }
+      },
+      "source": [
+        "!pip install transformers --quiet"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "\u001b[K     |████████████████████████████████| 450kB 2.8MB/s \n",
+            "\u001b[K     |████████████████████████████████| 860kB 13.7MB/s \n",
+            "\u001b[K     |████████████████████████████████| 1.0MB 19.4MB/s \n",
+            "\u001b[?25h  Building wheel for sacremoses (setup.py) ... \u001b[?25l\u001b[?25hdone\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab_type": "code",
+        "id": "SGov6e8uGO3B",
+        "outputId": "32f92c9c-60b8-4c4d-f0db-697a28d69e62",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 51
+        }
+      },
+      "source": [
+        "%tensorflow_version 2.x\n",
+        "import numpy as np\n",
+        "import tensorflow as tf\n",
+        "from time import time\n",
+        "from tqdm import tqdm_notebook as tqdm\n",
+        "from transformers import BertTokenizer\n",
+        "import pandas as pd\n",
+        "from pprint import pprint\n",
+        "\n",
+        "print('TensorFlow:', tf.__version__)"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "TensorFlow 2.x selected.\n",
+            "TensorFlow: 2.1.0-rc1\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Jw_w81fx0fTy",
+        "colab_type": "code",
+        "outputId": "c765460d-1119-4af7-9830-d89296fbc21d",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 34
+        }
+      },
+      "source": [
+        "tf.config.experimental.list_physical_devices('GPU')"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "[PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 4
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab_type": "code",
+        "id": "iht3WQa3H_g6",
+        "colab": {}
+      },
+      "source": [
+        "try:\n",
+        "    tpu = tf.distribute.cluster_resolver.TPUClusterResolver()  # TPU detection\n",
+        "    print('Running on TPU ', tpu.cluster_spec().as_dict()['worker'])\n",
+        "except ValueError:\n",
+        "    tpu = None\n",
+        "\n",
+        "if tpu:\n",
+        "    tf.config.experimental_connect_to_cluster(tpu)\n",
+        "    tf.tpu.experimental.initialize_tpu_system(tpu)\n",
+        "    strategy = tf.distribute.experimental.TPUStrategy(tpu)\n",
+        "else:\n",
+        "    strategy = tf.distribute.MirroredStrategy()\n",
+        "\n",
+        "print(\"REPLICAS: \", strategy.num_replicas_in_sync)"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab_type": "code",
+        "id": "3ks95sxuIKbR",
+        "outputId": "42294bfe-edc4-4c0f-a230-709609b09db7",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 34
+        }
+      },
+      "source": [
+        "workers = ['/GPU:0']\n",
+        "workers"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "['/GPU:0']"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 13
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab_type": "code",
+        "id": "uByeXRrVO78_",
+        "colab": {}
+      },
+      "source": [
+        "class Index:\n",
+        "    def __init__(self, embeddings, worker):\n",
+        "        self.embeddings = tf.math.l2_normalize(embeddings, axis=1)\n",
+        "        self.worker = worker\n",
+        "\n",
+        "    @tf.function\n",
+        "    def search(self, query_vector):\n",
+        "      with tf.device(worker):\n",
+        "        tf.debugging.set_log_device_placement(True)\n",
+        "        dot_product = tf.reduce_sum(tf.multiply(self.embeddings, query_vector), axis=1)\n",
+        "        distances = 1 - dot_product\n",
+        "        sorted_indices =  tf.argsort(distances)\n",
+        "        nearest_distances = tf.gather(distances, sorted_indices)\n",
+        "        return nearest_distances[:20], sorted_indices[:20]"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab_type": "code",
+        "id": "DFloyWt7G8ts",
+        "colab": {}
+      },
+      "source": [
+        "citations_embeddings = np.load('CitationSimilarityVectors106Epochs.npy')\n",
+        "abstract_embeddings = np.load('AbstractSimVectors.npy')\n",
+        "assert citations_embeddings.shape == abstract_embeddings.shape"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab_type": "code",
+        "id": "AB8L4sA-H2nf",
+        "outputId": "443704d0-cfab-4ac6-ebe1-5b26a79e7ee6",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 34
+        }
+      },
+      "source": [
+        "# Discarding last 4 vectors to make number of vectors divisible by 8\n",
+        "# citations_embeddings = np.split(citations_embeddings[:-4], 8, axis=0)\n",
+        "# abstract_embeddings = np.split(abstract_embeddings[:-4], 8, axis=0)\n",
+        "\n",
+        "vecs_per_index = citations_embeddings.shape[0]\n",
+        "print('Vectors per index :', vecs_per_index)"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Vectors per index : 1262996\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab_type": "code",
+        "id": "HoEA0SqeJW4n",
+        "outputId": "40064385-99b4-435c-9899-7cca2100c2ca",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 34
+        }
+      },
+      "source": [
+        "## Place 1/8 of total embeddings on each TPU core\n",
+        "citation_indices = []\n",
+        "abstract_indices = []\n",
+        "for i, worker in enumerate(workers):\n",
+        "  with tf.device(worker):\n",
+        "    print('Building index with {} vectors on {}'.format(citations_embeddings.shape[0], worker))\n",
+        "    citation_indices.append(Index(citations_embeddings, worker))\n",
+        "    abstract_indices.append(Index(abstract_embeddings, worker))"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Building index with 1262996 vectors on /GPU:0\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab_type": "code",
+        "id": "W5r4LmcVqGAZ",
+        "colab": {}
+      },
+      "source": [
+        "def search(xq, top_k=10):\n",
+        "  cD, cI = [], []\n",
+        "  aD, aI = [], []\n",
+        "  for i in range(1):\n",
+        "    print('Search running on {}'.format(citation_indices[i].worker))\n",
+        "    cd, cidx = citation_indices[i].search(xq)\n",
+        "    ad, aidx = abstract_indices[i].search(xq)\n",
+        "\n",
+        "    cD.extend(cd.numpy())\n",
+        "    aD.extend(ad.numpy())\n",
+        "\n",
+        "    cI.extend(i*vecs_per_index + cidx.numpy())\n",
+        "    aI.extend(i*vecs_per_index + aidx.numpy())\n",
+        "\n",
+        "  cid_sorted = np.argsort(cD)[:top_k]\n",
+        "  aid_sorted = np.argsort(aD)[:top_k]\n",
+        "\n",
+        "  cD = np.array(cD)[cid_sorted]\n",
+        "  aD = np.array(aD)[aid_sorted]\n",
+        "\n",
+        "  cI = np.array(cI)[cid_sorted]\n",
+        "  aI = np.array(aI)[aid_sorted]\n",
+        "  return cD, aD, cI, aI"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Syc0k8Yi4rcz",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "model = tf.saved_model.load('gs://tfworld/saved_models')\n",
+        "tokenizer = BertTokenizer(vocab_file='scibert_scivocab_uncased/vocab.txt')\n",
+        "\n",
+        "df = pd.read_json('TitlesAbstractsEmbedIds.json.gzip', compression = 'gzip')\n",
+        "embed2Title = pd.Series(df['title'].values,index=df['EmbeddingID']).to_dict()\n",
+        "embed2Abstract = pd.Series(df['paperAbstract'].values,index=df['EmbeddingID']).to_dict()"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "jxkcuP0CDNKM",
+        "colab_type": "code",
+        "outputId": "15c2aeb1-d4c3-47ac-c8aa-ae44e38d6bbf",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 102
+        }
+      },
+      "source": [
+        "# embed_id = 70\n",
+        "title ='title' #embed2Title[embed_id]\n",
+        "# abstract = embed2Abstract[embed_id]\n",
+        "abstract = '''financial modelling of assets'''\n",
+        "\n",
+        "abstract_encoded = tokenizer.encode(abstract, max_length=512, pad_to_max_length=True)\n",
+        "abstract_encoded = tf.constant(abstract_encoded, dtype=tf.int32)[None, :]\n",
+        "print('Title : ')\n",
+        "pprint(title)\n",
+        "print('\\nAbstract : ')\n",
+        "pprint(abstract)"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Title : \n",
+            "'title'\n",
+            "\n",
+            "Abstract : \n",
+            "'financial modelling of assets'\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "EhiyvUxrF4xr",
+        "colab_type": "code",
+        "outputId": "442a3c87-25a1-4a4d-b221-c4364ea3cb88",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 1000
+        }
+      },
+      "source": [
+        "s = time()\n",
+        "bert_output = model(abstract_encoded)\n",
+        "xq = tf.nn.l2_normalize(bert_output, axis=1)\n",
+        "e_p = time()\n",
+        "\n",
+        "cD, aD, cI, aI = search(xq, top_k=5)\n",
+        "e_s = time()\n",
+        "print('\\n'*2)\n",
+        "print('Prediction time  :', np.round(e_p-s, 3), 'secs')\n",
+        "print('Search time      :', np.round(e_s-e_p, 3), 'secs')\n",
+        "print('Total time       :', np.round(e_s - s, 3), 'secs')\n",
+        "\n",
+        "print('\\n'*2)\n",
+        "print('*'*80)\n",
+        "for i in range(len(cI)):\n",
+        "  print('Title : ')\n",
+        "  pprint(embed2Title[cI[i]])\n",
+        "  print('*'*80, )\n",
+        "print('\\nNeighbours       :', cI )\n",
+        "print('Distances        :', np.round(cD, 4))\n",
+        "\n",
+        "print('\\n'*4)\n",
+        "print('*'*80)\n",
+        "for i in range(len(aI)):\n",
+        "  print('Abstract : ')\n",
+        "  pprint(embed2Abstract[aI[i]])\n",
+        "  print('*'*80)\n",
+        "print('\\nNeighbours       :', aI )\n",
+        "print('Distances        :', np.round(aD, 4))"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Search running on /GPU:0\n",
+            "\n",
+            "\n",
+            "\n",
+            "Prediction time  : 0.046 secs\n",
+            "Search time      : 0.066 secs\n",
+            "Total time       : 0.112 secs\n",
+            "\n",
+            "\n",
+            "\n",
+            "********************************************************************************\n",
+            "Title : \n",
+            "('Approach for improving receiver performance in loss-free handovers in DVB-H '\n",
+            " 'networks')\n",
+            "********************************************************************************\n",
+            "Title : \n",
+            "'The Bruhat order on clans'\n",
+            "********************************************************************************\n",
+            "Title : \n",
+            "('Combinatorial invariance of Kazhdan–Lusztig–Vogan polynomials for fixed '\n",
+            " 'point free involutions')\n",
+            "********************************************************************************\n",
+            "Title : \n",
+            "'Qualification of the Joints for the ITER Central Solenoid'\n",
+            "********************************************************************************\n",
+            "Title : \n",
+            "'Buffer Occupancy-Based CAC in Converged IP and Broadcasting Networks'\n",
+            "********************************************************************************\n",
+            "\n",
+            "Neighbours       : [  28327 1035631  927389  873572  709480]\n",
+            "Distances        : [0.6725 0.6749 0.676  0.6835 0.6875]\n",
+            "\n",
+            "\n",
+            "\n",
+            "\n",
+            "\n",
+            "********************************************************************************\n",
+            "Abstract : \n",
+            "('Illiquidity and market impact refer to the situation where it may be costly '\n",
+            " 'or difficult to trade a desired quantity of assets over a desire period of '\n",
+            " 'time. In this paper, we formulate a simple model of dynamic portfolio choice '\n",
+            " 'that incorporates liquidity effects. The resulting problem is a stochastic '\n",
+            " 'linear quadratic control problem where liquidity costs are modeled as a '\n",
+            " 'quadratic penalty on the trading rate. Though easily computable via Riccati '\n",
+            " 'equations, we also derive a multiple time scale asymptotic expansion of the '\n",
+            " 'value function and optimal trading rate in the regime of vanishing market '\n",
+            " 'impact costs. This expansion reveals an interesting but intuitive '\n",
+            " 'relationship between the optimal trading rate for the “illiquid” problem and '\n",
+            " 'the classical Merton model for dynamic portfolio selection in perfectly '\n",
+            " 'liquid markets. It also gives rise to the notion of a “liquidity time scale” '\n",
+            " 'which shows how trading horizon and market impact costs affect the optimal '\n",
+            " 'trading rate.')\n",
+            "********************************************************************************\n",
+            "Abstract : \n",
+            "('We discuss extensions of reduced-form and structural models for pricing '\n",
+            " 'credit risky securities to portfolio simulation and valuation. Stochasticity '\n",
+            " 'in interest rates and credit spreads is captured via reduced-form models and '\n",
+            " 'is incorporated with a default and migration model based on the structural '\n",
+            " 'credit risk modelling approach. Calculated prices are consistent with '\n",
+            " 'observed prices and the term structure of default-free and defaultable '\n",
+            " 'interest rates. Three applications are discussed: (i) study of the '\n",
+            " 'inter-temporal price sensitivity of credit bonds and the sensitivity of '\n",
+            " 'future portfolio valuation with respect to changes in interest rates, '\n",
+            " 'default probabilities, recovery rates and rating migration, (ii) study of '\n",
+            " 'the structure of credit risk by investigating the impact of disparate risk '\n",
+            " 'factors on portfolio risk, and (iii) tracking of corporate bond indices via '\n",
+            " 'simulation and optimisation models. In particular, we study the effect of '\n",
+            " 'uncertainty in credit spreads and interest rates on the overall risk of a '\n",
+            " 'credit portfolio, a topic that has been recently discussed by Kiesel et al. '\n",
+            " '[The structure of credit risk: spread volatility and ratings transitions. '\n",
+            " 'Technical report, Bank of England, ISSN 1268-5562, 2001], but has been '\n",
+            " 'otherwise mostly neglected. We find that spread risk and interest rate risk '\n",
+            " 'are important factors that do not diversify away in a large portfolio '\n",
+            " 'context, especially when high-quality instruments are considered.')\n",
+            "********************************************************************************\n",
+            "Abstract : \n",
+            "('This paper explores the effects of a firm’s cash flow systematic risk on its '\n",
+            " 'optimal capital structure. In a model where firms are allowed to borrow '\n",
+            " 'resources from a competitive lending sector, those with cash flows more '\n",
+            " 'correlated with the aggregate economy (i.e., firms with riskier assets in '\n",
+            " 'place) choose a lower leverage given their higher expected financing costs. '\n",
+            " 'On the other hand, less risky firms, having lower expected financing costs, '\n",
+            " 'optimally choose to issue more debt to exploit a tax advantage. The model '\n",
+            " 'predicts that cash flow systematic risk is negatively correlated with '\n",
+            " 'leverage and corporate bond yields.')\n",
+            "********************************************************************************\n",
+            "Abstract : \n",
+            "('In this study we are trying with the neural network model to make an '\n",
+            " 'effective analysis for corporation credit rating. A 12-25-1 three-layer '\n",
+            " 'feedforward neural network using the backpropagation and Levenberg-Marquardt '\n",
+            " 'algorithms has been used in the proposed artificial neural network. The '\n",
+            " 'experiment results show that this network is efficient and forms a useful '\n",
+            " 'tool for the prediction of corporation credit rating.')\n",
+            "********************************************************************************\n",
+            "Abstract : \n",
+            "('We examine the relation between implied cost of capital and expected returns '\n",
+            " 'under an assumption that expected returns are stochastic, a property '\n",
+            " 'supported by theory and empirical evidence. We demonstrate that implied cost '\n",
+            " 'of capital differs from expected return, on average, by a function '\n",
+            " 'encompassing volatilities of, as well as correlation between, expected '\n",
+            " 'returns and cash flows, growth in cash flows, and leverage. These results '\n",
+            " 'provide alternative explanations for findings from empirical studies '\n",
+            " 'employing implied cost of capital on the magnitude of the market risk '\n",
+            " 'premium; predictability of future returns; and the relations between cost of '\n",
+            " 'capital and a host of firm characteristics, such as growth, leverage, '\n",
+            " 'idiosyncratic risk and the firm’s information environment.')\n",
+            "********************************************************************************\n",
+            "\n",
+            "Neighbours       : [148662 150355 835910 371932 690277]\n",
+            "Distances        : [0.5289 0.5393 0.544  0.5483 0.5513]\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "7Nv5KmtIJK0t",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 0,
+      "outputs": []
+    }
+  ]
+}
