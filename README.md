@@ -1,6 +1,10 @@
 [![HitCount](http://hits.dwyl.io/Santosh-Gupta/NaturalLanguageRecommendations.svg)](http://hits.dwyl.io/Santosh-Gupta/NaturalLanguageRecommendations)
 
-## NaturalLanguageRecommendations
+# Natural Language Recommendations : Retrieve scientific papers using embeddings and transformer models. 
+
+<p align="center">
+  <img src="https://i.imgur.com/r7SZcEt.png">
+</p>
 
 ### Paper Data
 The papers used for this project were cleaned from Semantic Scholar's Open Corpus. 
