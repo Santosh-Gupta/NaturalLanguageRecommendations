@@ -1,14 +1,14 @@
 import os
 import tensorflow as tf
-from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras.layers import (Dense,
+                                     Dropout)
 from transformers import TFBertModel
 from time import time
 print('TensorFlow:', tf.__version__)
 
-
 try:
     tpu = tf.distribute.cluster_resolver.TPUClusterResolver(
-        'srihari-1-tpu')
+        'srihari-1-tpu')  # TPU detection
     print('Running on TPU ', tpu.cluster_spec().as_dict()['worker'])
 except ValueError:
     tpu = None
@@ -22,7 +22,6 @@ else:
 
 print("REPLICAS: ", strategy.num_replicas_in_sync)
 
-
 batch_size = 32 * strategy.num_replicas_in_sync
 embedding_dim = 512
 autotune = tf.data.experimental.AUTOTUNE
@@ -32,15 +31,13 @@ val_steps = train_steps // 10
 epochs = 100
 print('Batch Size:', batch_size)
 
-
 base_dir = 'gs://tfworld'
-model_dir = os.path.join(base_dir, 'model_files')
-tensorboard_dir = os.path.join(base_dir, 'model_files', 'logs_' + str(time()))
+model_dir = os.path.join(base_dir, 'model_files_2')
+tensorboard_dir = os.path.join(model_dir, 'logs_' + str(time()))
 tfrecords_pattern_train = os.path.join(base_dir, 'tfrecords', 'train*')
 tfrecords_pattern_val = os.path.join(base_dir, 'tfrecords', 'eval*')
 
 print('Logging in: ', tensorboard_dir)
-
 
 features = {
     'title': tf.io.FixedLenFeature([512], dtype=tf.int64),
@@ -98,16 +95,19 @@ def loss_fn(_, probs):
     '''
     bs = tf.shape(probs)[0]
     labels = tf.eye(bs, bs)
-    return tf.losses.categorical_crossentropy(labels, probs, from_logits=False)
+    return tf.losses.categorical_crossentropy(labels,
+                                              probs,
+                                              from_logits=False)
 
 
 def create_model(drop_out):
-
-    textIds = tf.keras.Input(shape=(512,), dtype=tf.int32)
-
+    textIds = tf.keras.Input(
+        shape=(512,), dtype=tf.int32)    # from bert tokenizer
+    # normalized word2vec outputs
     citation = tf.keras.Input(shape=(512,))
 
-    bert_model = TFBertModel.from_pretrained('bert-base-uncased')
+    bert_model = TFBertModel.from_pretrained(
+        'scibert_scivocab_uncased', from_pt=True)
 
     textOut = bert_model(textIds)
     textOutMean = tf.reduce_mean(textOut[0], axis=1)
@@ -119,9 +119,11 @@ def create_model(drop_out):
                         name='DenseCitation')(citation)
     citationSim = Dropout(drop_out)(citationSim)
 
+    # Get dot product of each of title x citation combinations
     dotProduct = tf.reduce_sum(tf.multiply(
         textOutSim[:, None, :], citationSim), axis=-1)
 
+    # Softmax to make sure each row has sum == 1.0
     probs = tf.nn.softmax(dotProduct, axis=-1)
 
     model = tf.keras.Model(inputs=[textIds, citation], outputs=[probs])
@@ -129,21 +131,18 @@ def create_model(drop_out):
 
 
 with strategy.scope():
-    model = create_model(drop_out=.1)
-    model.compile(
-        loss=loss_fn, optimizer=tf.keras.optimizers.Adam(learning_rate=3e-5))
-
+    model = create_model(drop_out=0.20)
+    model.compile(loss=loss_fn,
+                  optimizer=tf.keras.optimizers.Adam(learning_rate=3e-5))
 
 callbacks = [tf.keras.callbacks.TensorBoard(log_dir=tensorboard_dir,
                                             update_freq='epoch'),
-             tf.keras.callbacks.ModelCheckpoint(filepath=model_dir +
-                                                '/epoch_{epoch:02d}_{loss:.2f})',
+             tf.keras.callbacks.ModelCheckpoint(filepath=model_dir + '/epoch_{epoch:02d}_{loss:.2f}',
                                                 monitor='loss',
                                                 verbose=1,
                                                 save_weights_only=True,
                                                 save_freq='epoch')
              ]
-
 
 model.fit(train_dataset,
           epochs=epochs,
