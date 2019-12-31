@@ -115,8 +115,11 @@ We are also looking to perform experiments and write up our work in a high enoug
 
 
 ### Notebooks
-#### [build_index_and_search.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/build_index_and_search.ipynb)
+#### [build_index_and_search.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/build_index_and_search.ipynb)
 Description: This notebook loads the trained bert model, builds the index with 1.3 million papers on TPUs and runs a demo search.
+
+#### [tpu_index_search_million_embeddings.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/tpu_index_search_million_embeddings.ipynb)
+Description: A demo notebook showcasing our tpu_index package running search on a million abstract embeddings from BERT model.
 
 #### [create_abstract_vectors.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/create_abstract_vectors.ipynb)
 Description: This notebook extracts embeddings for paper abstracts by passing them through the BERT model.
@@ -138,9 +141,6 @@ Description: This notebook was used to clean the original Open Corpus data in or
 
 #### [tfrecords_debug.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/tfrecords_debug.ipynb)
 Description: Testing the tfrecord writer class.
-
-#### [tpu_index.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/tpu_index.ipynb)
-Description: 
 
 #### [TF2.0 Word2Vec CBOW.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/TF2.0%20Word2Vec%20CBOW.ipynb)
 Description: The original Word2Vec model implemented in Keras.
