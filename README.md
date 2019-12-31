@@ -9,7 +9,7 @@
 ### Architecture 
 
 <p align="center">
-  <img src="NLRgifActuallyGif.gif">
+  <img src="NLRLongerNoBanner.gif">
 </p>
 
 ### Paper Data
