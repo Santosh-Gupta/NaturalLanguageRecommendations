@@ -9,7 +9,7 @@
 ### Architecture 
 
 <p align="center">
-  <img src="https://imgur.com/a/7stGQQx">
+  <img src="NLRgifActuallyGif.gif">
 </p>
 
 ### Paper Data
