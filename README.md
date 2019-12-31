@@ -70,7 +70,7 @@ https://github.com/huggingface/transformers
 
 And we used Keras for the overall architecture as well. The initial weights we used were SciBert weights https://github.com/allenai/scibert . 
 
-We used tf.data to handle our data pipeline, and we used TPUs to train over our data
+We used tf.data to handle our data pipeline, and we used TPUv3-8 provided by the TensorFlow Research Cloud to train over our data.
 
 https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/model.ipynb
 
