@@ -110,10 +110,10 @@ We are also looking to perform experiments and write up our work in a high enoug
 Description: This notebook loads the trained bert model, builds the index with 1.3 million papers on TPUs and runs a demo search.
 
 #### [create_abstract_vectors.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/create_abstract_vectors.ipynb)
-Description: 
+Description: This notebook extracts embeddings for paper abstracts by passing them through the BERT model.
 
 #### [inference_model.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference_model.ipynb)
-Description: 
+Description: This notebook builds the models for inference phase.
 
 #### [medical_preprocessing.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/medical_preprocessing.ipynb)
 Description: This notebook was used to clean the original Open Corpus dataset to retain all papers that either had a PubMed id or were part of MedLine and had at least 1 citation. Cleaned medical data in folder linked above.
@@ -142,3 +142,8 @@ Description: This file is a TFrecord writer class that has utility functions for
 
 #### [model.py](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/src/model.py)
 Description: This is the training code for the BERT model, which is designed to run on Google Cloud TPU v3-8.
+
+
+### Packages
+#### [tpu_index](https://github.com/srihari-humbarwadi/tpu_index)
+Description: TPU Index is a package that we came up with for the community to use for fast similarity search over large collections of high dimension vectors on TPUs.
