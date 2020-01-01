@@ -95,6 +95,17 @@ https://pypi.org/project/tpu-index/
 
 ### Unfinished Business (future work)
 
+## Some initial success
+
+It was recently found by one of our members a perfect example of how our solution compares to an established one such the Semantic Sholar Corpus. For this [paper](https://www.semanticscholar.org/paper/Job-Prediction%3A-From-Deep-Neural-Network-Models-to-Huynh-Nguyen/f96cae24d992d7bcd44a99baa2ecd80e713271cc#related-papers). Titled: Job Prediction: From Deep Neural Network Models to Applications
+Which the Sematic Scholar gives these three papers as 'Relevant Papers':
+![Relvancy](Relevant Paper Comparison.jpg)
+
+And our model was able to find:
+![OurRelevancy](Our Paper Comparison.jpg)
+
+Although our model also shows non-relevant results to using machine learning in job matching and modeling this does show the capibilities of our model in being able to find rarer or more obscure papers that have less academic papers written on the subject.
+
 #### Metrics
 
 Judging the results just qualitativly. . . they're really really *Really* Good. (But don't take our word for it, try it out. We have [colab notebooks](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/tree/master/notebooks/inference) that downloads the model and the data within a few clicks, and you can use it to search papers in CS). We are looking for ways to give our qualitative experiences quantitative metrics. If you have any ideas, please contact us at Research2vec@gmail.com .
