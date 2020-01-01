@@ -1,6 +1,6 @@
 [![HitCount](http://hits.dwyl.io/Santosh-Gupta/NaturalLanguageRecommendations.svg)](http://hits.dwyl.io/Santosh-Gupta/NaturalLanguageRecommendations)
 
-# Natural Language Recommendations : A research paper search engine developed entirely with embedding and transformer models. 
+# Natural Language Recommendations : A novel research paper search engine developed entirely with embedding and transformer models. 
 
 <p align="center">
   <img src="https://i.imgur.com/r7SZcEt.png">
@@ -65,7 +65,7 @@ tf.data.experimental.get_structure(train_dataset), tf.data.experimental.get_stru
   <img src="architecturePart3.JPG">
 </p>
 
-Another challenge we ran into is the training time for the data. We were developing this project for the tfword hackathon [https://tfworld.devpost.com/] whose deadline was dec 31st, but we had only finished processing the data a few days before. We had 1.26 million training example, and our architecture contained a whole Bert model, which is Not super fast to train on. Luckily, we has access to TPUs, which were ultrafast, **1 epoch taking 20-30 minutes each!**. Not only were we able to run several hyperparameter experiments on the data before the deadline. 
+Another challenge we ran into is the training time for the data. We were developing this project for the TFWorld hackathon [https://tfworld.devpost.com/] whose deadline was dec 31st, but we had only finished processing the data a few days before. We had 1.26 million training example, and our architecture contained a whole Bert model, which is Not super fast to train on. Luckily, we has access to TPUs, which were ultrafast, **1 epoch taking 20-30 minutes each!**. Not only were we able to run several hyperparameter experiments on the data before the deadline. 
 
 ```
 try:
