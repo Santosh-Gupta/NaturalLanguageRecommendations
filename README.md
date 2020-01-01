@@ -12,7 +12,93 @@
   <img src="NLRLongerNoBanner.gif">
 </p>
 
-The architecture is one part word2vec, one part Bert as a text encoder. I previously explored Bert medical text encodings in a previous project [https://github.com/re-search/DocProduct] and was impressed by the effectiveness at correlating medical questions with answers. In this project, we use the abstract of each paper as the input, but instead of using another Bert encoding as a label, we use a vector that was trained using word2vec. The Semantic Scholar Corpus [https://api.semanticscholar.org/corpus/] contains 179 million papers, and for each paper, it has the paper IDs of papers that it either cited, or papers that referenced that paper. This network of citations 
+The architecture is one part word2vec, one part Bert as a text encoder. I previously explored Bert medical text encodings in a previous project [https://github.com/re-search/DocProduct] and was impressed by the effectiveness at correlating medical questions with answers. In this project, we use the abstract of each paper as the input, but instead of using another Bert encoding as a label, we use a vector that was trained using word2vec. The Semantic Scholar Corpus [https://api.semanticscholar.org/corpus/] contains 179 million papers, and for each paper, it has the paper IDs of papers that it either cited, or papers that referenced that paper. 
+
+This network of citations can be trained on using the word2vec algorithm. Each embedding represents a paper. For each paper, it's citations and embeddings act as the 'context'. 
+
+
+<p align="center">
+  <img src="architecturePart1.JPG">
+</p>
+
+Our word2vec training notebooks can be found here https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/tree/master/notebooks/training
+
+Next, the abstracts are fed into Bert. The embeddings for the last hidden layer and mean pooled into a single 768 dimensional vector. This vector and then fed into a fully connected layer, whose output is a 512 dimensional vector. At the same time, each paper's paper vector is fed into a seperate fully connected layer, whose output is 512 dimensions. We picked 512 as the embedding size in word2vec because in the literature on word embeddings, sometimes the embedding quality decreases after 512 dimensions, so we picked the highest dimension possible (to closer to Bert's 768 hidden layer dimensions) without risk of decreasing the quality of the embeddings. There isn't too much confidence in this choice, as the distributions in the paper data are quite different from words in text. Regular word2vec training contains 5-6 figures of labels, a lot of which frequenctly occur throughout the data. The paper data has  7-8 figures of labels, which each label occuring much less frequently. 
+
+
+<p align="center">
+  <img src="architecturePart2.JPG">
+</p>
+
+The notebook that we used to convert the abstracts to bert input ids, and make a dataset with the input ids and paper vectors to tfrecords files can be found here 
+
+https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/data/CreateCS_tfrecordsDataSet4Bert_github.ipynb
+
+We wanted to use negative sampling in our training, so in each batch, all of the labels can act as negative labels for training examples that they do not belong to. This is tricky to do, because we wanted the samples to be chosen at random, but our data was split up into multiple files, with only a few at a time being loaded into memory due to our dataset being too large to fit the whole thing into ram. Luckily, the tf.data api made this really easy to do. 
+
+```
+with strategy.scope():
+    train_files = tf.data.Dataset.list_files(tfrecords_pattern_train)
+    train_dataset = train_files.interleave(tf.data.TFRecordDataset,
+                                           cycle_length=32,
+                                           block_length=4,
+                                           num_parallel_calls=autotune)
+    train_dataset = train_dataset.map(parse_example, num_parallel_calls=autotune)
+    train_dataset = train_dataset.batch(batch_size, drop_remainder=True)
+    train_dataset = train_dataset.repeat()
+    train_dataset = train_dataset.prefetch(autotune)
+
+    val_files = tf.data.Dataset.list_files(tfrecords_pattern_val)
+    val_dataset = val_files.interleave(tf.data.TFRecordDataset,
+                                       cycle_length=32,
+                                       block_length=4,
+                                       num_parallel_calls=autotune)
+    val_dataset = val_dataset.map(parse_example, num_parallel_calls=autotune)
+    val_dataset = val_dataset.batch(batch_size, drop_remainder=True)
+    val_dataset = val_dataset.repeat()
+    val_dataset = val_dataset.prefetch(autotune)
+
+tf.data.experimental.get_structure(train_dataset), tf.data.experimental.get_structure(val_dataset)
+```
+
+Another challenge we ran into is the training time for the data. We were developing this project for the tfword hackathon [https://tfworld.devpost.com/] whose deadline was dec 31st, but we had only finished processing the data a few days before. We had 1.26 million training example, and our architecture contained a whole Bert model, which is Not super fast to train on. Luckily, we has access to TPUs, which were ultrafast, **1 epoch taking 20-30 minutes each!**. Not only were we able to run several hyperparameter experiments on the data before the deadline. 
+
+The really fun part was using Tensorboard, which allows users to see training and results in real time. 
+
+https://tensorboard.dev/experiment/rPYkizsLTWOpua3cyePkIg/#scalars
+
+https://tensorboard.dev/experiment/dE1MpRHvSd2XMltMrwqbeA/#scalars
+
+Watching the first Tensorboard training was like watching a NASA launch. At the time of the first training, we spent nearly 2 months on the project. There was some worry that the data may not train well. There may have been something wrong with the data. Maybe we picked the wrong hyperparameters, etc. We all sat around, nerviously waiting for each 20 minute epoch increment, hoping the loss would go do. And then it did. And then it did again, and again. And again. 
+
+
+
+```
+try:
+    tpu = tf.distribute.cluster_resolver.TPUClusterResolver('srihari-1-tpu')  # TPU detection
+    print('Running on TPU ', tpu.cluster_spec().as_dict()['worker'])
+except ValueError:
+    tpu = None
+
+if tpu:
+    tf.config.experimental_connect_to_cluster(tpu)
+    tf.tpu.experimental.initialize_tpu_system(tpu)
+    strategy = tf.distribute.experimental.TPUStrategy(tpu)
+```
+
+```
+with strategy.scope():
+    train_files = tf.data.Dataset.list_files(tfrecords_pattern_train)
+```
+
+```
+with strategy.scope():
+    model = create_model(drop_out=0.20)
+    model.compile(loss=loss_fn,
+                  optimizer=tf.keras.optimizers.Adam(learning_rate=3e-5))
+```
+
+
 
 ### Paper Data
 The papers used for this project were cleaned from Semantic Scholar's Open Corpus. 
