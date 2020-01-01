@@ -61,17 +61,11 @@ with strategy.scope():
 tf.data.experimental.get_structure(train_dataset), tf.data.experimental.get_structure(val_dataset)
 ```
 
+<p align="center">
+  <img src="architecturePart3.JPG">
+</p>
+
 Another challenge we ran into is the training time for the data. We were developing this project for the tfword hackathon [https://tfworld.devpost.com/] whose deadline was dec 31st, but we had only finished processing the data a few days before. We had 1.26 million training example, and our architecture contained a whole Bert model, which is Not super fast to train on. Luckily, we has access to TPUs, which were ultrafast, **1 epoch taking 20-30 minutes each!**. Not only were we able to run several hyperparameter experiments on the data before the deadline. 
-
-The really fun part was using Tensorboard, which allows users to see training and results in real time. 
-
-https://tensorboard.dev/experiment/rPYkizsLTWOpua3cyePkIg/#scalars
-
-https://tensorboard.dev/experiment/dE1MpRHvSd2XMltMrwqbeA/#scalars
-
-Watching the first Tensorboard training was like watching a NASA launch. At the time of the first training, we spent nearly 2 months on the project. There was some worry that the data may not train well. There may have been something wrong with the data. Maybe we picked the wrong hyperparameters, etc. We all sat around, nerviously waiting for each 20 minute epoch increment, hoping the loss would go do. And then it did. And then it did again, and again. And again. 
-
-
 
 ```
 try:
@@ -99,6 +93,28 @@ with strategy.scope():
 ```
 
 
+
+The really fun part was using Tensorboard, which allows users to see training and results in real time. 
+
+https://tensorboard.dev/experiment/rPYkizsLTWOpua3cyePkIg/#scalars
+
+https://tensorboard.dev/experiment/dE1MpRHvSd2XMltMrwqbeA/#scalars
+
+<p align="center">
+  <img src="TensorBoard.JPG">
+</p>
+
+A link to the model training notebook can be found here 
+
+https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/training/model.ipynb
+
+Watching the first Tensorboard training was like watching a NASA launch. At the time of the first training, we spent nearly 2 months on the project. There was some worry that the data may not train well. There may have been something wrong with the data. Maybe we picked the wrong hyperparameters, etc. We all sat around, nerviously waiting for each 20 minute epoch increment, hoping the loss would go do. And then it did. And then it did again, and again. And again. 
+
+After the embeddings pass through the fully connected layers, the resulting embeddings are all dot product'd with each other. For each paper, a softmax was taken for each of it's dot products. Finally, cross-entropy loss was performed on these logits, with a label of 1 for each original input/output pair for that training example, and 0 for all other combinations. 
+
+<p align="center">
+  <img src="architecturePart4.JPG">
+</p>
 
 ### Paper Data
 The papers used for this project were cleaned from Semantic Scholar's Open Corpus. 
