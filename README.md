@@ -101,12 +101,12 @@ Which the Sematic Scholar gives these three papers as 'Relevant Papers':
 
 <p align="center">
   <img src="Relevant Paper Comparison.jpg">
-</p>!
+</p>
 
 And our model was able to find:
 <p align="center">
   <img src="Our Paper Comparison.jpg">
-</p>!
+</p>
 
 Although our model also shows non-relevant results to using machine learning in job matching and modeling this does show the capibilities of our model in being able to find rarer or more obscure papers that have less academic papers written on the subject.
 
