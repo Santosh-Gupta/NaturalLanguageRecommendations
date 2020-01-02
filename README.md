@@ -373,6 +373,45 @@ Linear Discriminative Sparsity Preserving Projections for Dimensionality Reducti
 
 Transfer Sparse Coding for Robust Image Representation https://www.semanticscholar.org/paper/afe14b9034f71c7078cd03626853170ef51b8060
 
+### Case 4
+
+query = 'Copula Density Estimation'
+
+-Top 5 results for Semantic Scholar.
+
+https://www.semanticscholar.org/search?q=Copula%20Density%20Estimation&sort=relevance
+
+Copula Methods in Finance https://www.semanticscholar.org/paper/Copula-Methods-in-Finance-Cherubini-Luciano/f5a07d110482abf5bb537b37d414737d114afa09
+
+Autoregressive Conditional Density Estimation https://www.semanticscholar.org/paper/Autoregressive-Conditional-Density-Estimation-Hansen/c474cc43d8294ef7340f615a429f5085df624051
+
+Kernel density estimation via diffusion https://www.semanticscholar.org/paper/Bayesian-Density-Estimation-and-Inference-Using-Escobar-West/df25adb36860c1ad9edaac04b8855a2f19e79c5b
+
+Bayesian Density Estimation and Inference Using Mixtures https://www.semanticscholar.org/paper/Bayesian-Density-Estimation-and-Inference-Using-Escobar-West/df25adb36860c1ad9edaac04b8855a2f19e79c5b
+
+Pair-copula constructions of multiple dependence https://www.semanticscholar.org/paper/Pair-copula-constructions-of-multiple-dependence-Aas-Czado/817b6512d3d07ae231d525c366f9a95aa9bdc75a
+
+-Top results for Natural Language Recommendations 
+
+Using abstract similarity 
+
+On Necessary Conditions for Dependence Parameters of Minimum and Maximum Value Distributions Based on n-Variate FGM Copula https://www.semanticscholar.org/paper/ac2a2521904ca20d1135370581fdc84fbb79e46d
+
+Conditional Mean and Conditional Variance for Ali-Mikhail-Hap Copula https://www.semanticscholar.org/paper/ed09d9d721a63ca2d2fa5fac945f1e8e96b7b429
+
+Efficient estimation of high-dimensional multivariate normal copula models with discrete spatial responses https://www.semanticscholar.org/paper/f09557729a65cd87b8bbfd0950125063e06b97da
+
+Nonparametric estimation of simplified vine copula models: comparison of methods https://www.semanticscholar.org/paper/3e41b0e69342f71ff33791b88eb741c265c1eabf
+
+On tests of radial symmetry for bivariate copulas https://www.semanticscholar.org/paper/f22539174a7915b68092f27c6b6bc3c91f1fa1b0
+
+Using citation similarity
+
+None of the results using citation similarity were relevant. Again, it doesn't really do well unless the queries are over 100 words. 
+
+
+
+
 ## Unfinished Business (future work)
 
 #### Metrics
