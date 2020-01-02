@@ -3,7 +3,7 @@
 # Natural Language Recommendations : A novel research paper search engine developed entirely with embedding and transformer models. 
 
 <p align="center">
-  <img src="images/https://i.imgur.com/r7SZcEt.png">
+  <img src="https://i.imgur.com/r7SZcEt.png">
 </p>
 
 ## Architecture 
