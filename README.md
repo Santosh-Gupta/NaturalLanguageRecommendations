@@ -254,6 +254,10 @@ https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommenda
 
 ## Side Quest 
 
+<p align="center">
+  <img src="https://i.imgur.com/BJdZE21.png">
+</p>
+
 We plan to eventually run inference on all 179 million papers on the Semantic Scholar Corpus, each which will have a 512 dimensional vector, which is a ton of papers to run similarity search on.  This can be very computational resource and time consuming. There are libraries for this, like Faiss, but as we were getting to know how to utilize TPUs, Srihari came up with an idea of running cos similarity indexing over TPUs; and he created a new library for this!
 
 ```
@@ -311,7 +315,7 @@ Although our model also shows non-relevant results to using machine learning in 
 
 query = 'job prediction with machine learning'
 
--Top 5 results for Semantic Scholar 
+---Top 5 results for Semantic Scholar--- 
 
 https://www.semanticscholar.org/search?q=job%20prediction%20with%20machine%20learning&sort=relevance
 
@@ -325,9 +329,9 @@ Gaussian processes for machine learning https://www.semanticscholar.org/paper/Ga
 
 Applications of Machine Learning in Cancer Prediction and Prognosis https://www.semanticscholar.org/paper/Applications-of-Machine-Learning-in-Cancer-and-Cruz-Wishart/7e7b9f37ce280787075046727efbaf9b5a390729
 
--Top results for Natural Language Recommendations 
+---Top results for Natural Language Recommendations--- 
 
-Using abstract similarity 
+Using abstract similarity: 
 
 Bejo: Behavior Based Job Classification for Resource Consumption Prediction in the Cloud https://www.semanticscholar.org/paper/f6913c1d255f236f7c4e2a810425d33256cf3d84
 
@@ -339,7 +343,7 @@ Job Recommendation System based on Machine Learning and Data Mining Techniques u
 
 Machine Learning Based Prediction and Classification of Computational Jobs in Cloud Computing Centers https://www.semanticscholar.org/paper/e1b11d29b7bba8b6048439ebbb8ee26700d702a1
 
-Using citation similarity (these results aren't as good; citation similarity only seems to do well with longer inputs, 100+ words)
+Using citation similarity (these results aren't as good; citation similarity only seems to do well with longer inputs, 100+ words):
 
 A signal processing method to eliminate grating lobes https://www.semanticscholar.org/paper/0bc3f599347ae37b530b79e7e7458dca8208aef1
 
@@ -354,7 +358,7 @@ https://www.semanticscholar.org/paper/179a4bf74953c5111abd4de1f31e0f163d48fd22
 
 query = 'Optimal negative sampling for embedding models. What is the ratio of negative samples to positive examples results in the best quality vectors in noise contrastive estimation.'
 
--Top 5 results for Semantic Scholar (CS results only)
+---Top 5 results for Semantic Scholar (CS results only)---
 
 https://www.semanticscholar.org/search?q=Optimal%20negative%20sampling%20for%20embedding%20models.%20What%20is%20the%20ratio%20of%20negative%20samples%20to%20positive%20examples%20results%20in%20the%20best%20quality%20vectors%20in%20noise%20contrastive%20estimation.&sort=relevance
 
@@ -368,9 +372,9 @@ Negative Binomial Regression https://www.semanticscholar.org/paper/Negative-Bino
 
 A transformation for ordering multispectral data in terms of image quality with implications for noise removal https://www.semanticscholar.org/paper/A-transformation-for-ordering-multispectral-data-in-Green-Berman/6ae00ebd3a91c0667c79c39035b5163025bcfcad
 
--Top results for Natural Language Recommendations 
+---Top results for Natural Language Recommendations--- 
 
-Using abstract similarity 
+Using abstract similarity: 
 
 Biparti Majority Learning with Tensors https://www.semanticscholar.org/paper/0985d86afbfcd53462f59bd26dd03505c9c09395
 
@@ -383,7 +387,7 @@ Concave Region Partitioning with a Greedy Strategy on Imbalanced Points https://
 Noise-Contrastive Estimation Based on Relative Neighbour Sampling for Unsupervised Image Embedding Learning
 https://www.semanticscholar.org/paper/9b87f58b620d9de5f360f6dccdcedfffd99c1408
 
-Using citation similarity
+Using citation similarity:
 
 Learning from Imbalanced Data https://www.semanticscholar.org/paper/6a97303b92477d95d1e6acf7b443ebe19a6beb60
 
