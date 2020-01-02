@@ -289,7 +289,7 @@ Although our model also shows non-relevant results to using machine learning in 
 
 query = 'job prediction with machine learning'
 
-Top 5 results for Semantic Scholar 
+-Top 5 results for Semantic Scholar 
 
 https://www.semanticscholar.org/search?q=job%20prediction%20with%20machine%20learning&sort=relevance
 
@@ -303,7 +303,7 @@ Gaussian processes for machine learning https://www.semanticscholar.org/paper/Ga
 
 Applications of Machine Learning in Cancer Prediction and Prognosis https://www.semanticscholar.org/paper/Applications-of-Machine-Learning-in-Cancer-and-Cruz-Wishart/7e7b9f37ce280787075046727efbaf9b5a390729
 
-Top results for Natural Language Recommendations 
+-Top results for Natural Language Recommendations 
 
 Using abstract similarity 
 
@@ -328,6 +328,50 @@ Space-vector PWM voltage control with optimized switching strategy https://www.s
 Pole position problem for Meixner filters
 https://www.semanticscholar.org/paper/179a4bf74953c5111abd4de1f31e0f163d48fd22
 
+### Case 3
+
+query = 'Optimal negative sampling for embedding models. What is the ratio of negative samples to positive examples results in the best quality vectors in noise contrastive estimation.'
+
+-Top 5 results for Semantic Scholar (CS results only)
+
+https://www.semanticscholar.org/search?q=Optimal%20negative%20sampling%20for%20embedding%20models.%20What%20is%20the%20ratio%20of%20negative%20samples%20to%20positive%20examples%20results%20in%20the%20best%20quality%20vectors%20in%20noise%20contrastive%20estimation.&sort=relevance
+
+Toward Optimal Active Learning through Sampling Estimation of Error Reduction https://www.semanticscholar.org/paper/Toward-Optimal-Active-Learning-through-Sampling-of-Roy-McCallum/0a20a309deda54fe14580007759c9c7623c58694
+
+Sampling-based algorithms for optimal motion planning https://www.semanticscholar.org/paper/Sampling-based-algorithms-for-optimal-motion-Karaman-Frazzoli/4326d7e9933c77ff9dc53056c62ef6712d90c633
+
+Large sample estimation and hypothesis testing https://www.semanticscholar.org/paper/Large-sample-estimation-and-hypothesis-testing-Newey-Mcfadden/3ff91f28967e0702667a644f8f9c53d964d63e4c
+
+Negative Binomial Regression https://www.semanticscholar.org/paper/Negative-Binomial-Regression-Hilbe/e54fdd22ca9d6c1094db3c0de18b3f184734dd23
+
+A transformation for ordering multispectral data in terms of image quality with implications for noise removal https://www.semanticscholar.org/paper/A-transformation-for-ordering-multispectral-data-in-Green-Berman/6ae00ebd3a91c0667c79c39035b5163025bcfcad
+
+-Top results for Natural Language Recommendations 
+
+Using abstract similarity 
+
+Biparti Majority Learning with Tensors https://www.semanticscholar.org/paper/0985d86afbfcd53462f59bd26dd03505c9c09395
+
+Linear discriminant analysis with an information divergence criterion https://www.semanticscholar.org/paper/1f73769d98a1c661d4ce3877a25d558ef93f66bf
+
+One-class label propagation using local cone based similarity https://www.semanticscholar.org/paper/7e0c82b3225a12752dd1062292297b6201ca8d6e
+
+Concave Region Partitioning with a Greedy Strategy on Imbalanced Points https://www.semanticscholar.org/paper/d5bfdac67aec2940c93327bcf5d6e7ee86a70b64
+
+Noise-Contrastive Estimation Based on Relative Neighbour Sampling for Unsupervised Image Embedding Learning
+https://www.semanticscholar.org/paper/9b87f58b620d9de5f360f6dccdcedfffd99c1408
+
+Using citation similarity
+
+Learning from Imbalanced Data https://www.semanticscholar.org/paper/6a97303b92477d95d1e6acf7b443ebe19a6beb60
+
+Bregman Divergence-Based Regularization for Transfer Subspace Learning https://www.semanticscholar.org/paper/4118b4fc7d61068b9b448fd499876d139baeec81
+
+The pyramid match kernel: discriminative classification with sets of image features https://www.semanticscholar.org/paper/625bce34ec80d29242340400d916e799d2975430
+
+Linear Discriminative Sparsity Preserving Projections for Dimensionality Reduction https://www.semanticscholar.org/paper/13e677e2041e688a2b33391f21c163e042e097d9
+
+Transfer Sparse Coding for Robust Image Representation https://www.semanticscholar.org/paper/afe14b9034f71c7078cd03626853170ef51b8060
 
 ## Unfinished Business (future work)
 
