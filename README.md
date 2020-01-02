@@ -15,7 +15,7 @@ Run the first cell of the colab notebook to download and load the models and dat
 The model was trained on abstracts for input, so it does the best on inputs of ~100 words, but does pretty well on short 1-sentence queries as well. 
 
 <p align="center">
-  <img src="images/SampleNLRresults.JPG" width="70%">
+  <img src="images/SampleNLRresults.JPG" width="80%">
 </p>
 
 Results include, title, abstract, and Semantic Scholar link to the paper. 
