@@ -6,7 +6,7 @@
   <img src="images/https://i.imgur.com/r7SZcEt.png">
 </p>
 
-### Architecture 
+## Architecture 
 
 <p align="center">
   <img src="images/NLRLongerNoBanner.gif">
@@ -116,11 +116,11 @@ After the embeddings pass through the fully connected layers, the resulting embe
   <img src="images/architecturePart4.JPG">
 </p>
 
-### Paper Data
+## Paper Data
 The papers used for this project were cleaned from Semantic Scholar's Open Corpus. 
 Link to the cleaned data used: https://drive.google.com/open?id=1PcdLDJUXoVXorlCTcGlM98GllArk5Z9s
 
-### Our Amazing Chaotic Journey (How we did it)
+## Our Amazing Chaotic Journey (How we did it)
 
 #### Step 1: Filter the Semantic Scholar Corpus
 
@@ -197,7 +197,7 @@ https://github.com/srihari-humbarwadi/tpu_index
 
 https://pypi.org/project/tpu-index/
 
-### Side Quest 
+## Side Quest 
 
 Eventually, we are going to be working with 179 million research paper embeddings, each of dimension 512, and we're going to run similarity on all of them. This can be very computational resource and time consuming. There are libraries for this, like Faiss, but as we were getting to know how to utilize TPUs, Srihari came up with an idea of running cos similarity indexing over TPUs, and made a library around it.
 
@@ -213,7 +213,7 @@ https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/note
 
 Ultrafast indexing, powered by TPUs, no loss in quality.
 
-### Some initial success
+## Some initial success
 
 It was recently found by one of our members a perfect example of how our solution compares to an established one such the Semantic Sholar Corpus. For this [paper](https://www.semanticscholar.org/paper/Job-Prediction%3A-From-Deep-Neural-Network-Models-to-Huynh-Nguyen/f96cae24d992d7bcd44a99baa2ecd80e713271cc#related-papers). Titled: Job Prediction: From Deep Neural Network Models to Applications
 Which the Sematic Scholar gives these three papers as 'Relevant Papers':
@@ -229,7 +229,7 @@ And our model was able to find:
 
 Although our model also shows non-relevant results to using machine learning in job matching and modeling this does show the capibilities of our model in being able to find rarer or more obscure papers that have less academic papers written on the subject.
 
-### Unfinished Business (future work)
+## Unfinished Business (future work)
 
 #### Metrics
 
@@ -249,8 +249,10 @@ We are also hoping to figure out ways to increase the number of parameters we ca
 
 We are also looking to perform experiments and write up our work in a high enough level of quality that would make a significant contribution to the field of NLP, and thus qualify for getting accepted into a prestigiouos venue/journal. We are also looking for mentors who have accomplished this. If interested, please contact us at the email posted above.
 
+## File Descriptions 
 
 ### Notebooks
+
 #### [build_index_and_search.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/build_index_and_search.ipynb)
 Description: This notebook loads the trained bert model, builds the index with 1.3 million papers on TPUs and runs a demo search.
 
@@ -281,14 +283,16 @@ Description: Testing the tfrecord writer class.
 #### [TF2.0 Word2Vec CBOW.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/TF2.0%20Word2Vec%20CBOW.ipynb)
 Description: The original Word2Vec model implemented in Keras.
 
+
 ### Python files
+
 #### [tfrecordwriter.py](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/src/TFrecordWriter.py)
 Description: This file is a TFrecord writer class that has utility functions for sharing the dataset.
 
 #### [model.py](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/src/model.py)
 Description: This is the training code for the BERT model, which is designed to run on Google Cloud TPU v3-8.
 
-
 ### Packages
+
 #### [tpu_index](https://github.com/srihari-humbarwadi/tpu_index)
 Description: TPU Index is a package that we came up with for the community to use for fast similarity search over large collections of high dimension vectors on TPUs.
