@@ -243,7 +243,9 @@ https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommenda
 
 Ultrafast indexing, powered by TPUs, no loss in quality.
 
-## Some initial success
+## Case Studies (More coming soon)
+
+One of the main motivations of this project is to find papers that are highly relevant to a search query. We'll be testing the model out in the next couple weeks, and will post interesting case studies here. 
 
 It was recently found by one of our members a perfect example of how our solution compares to an established one such the Semantic Sholar Corpus. For this [paper](https://www.semanticscholar.org/paper/Job-Prediction%3A-From-Deep-Neural-Network-Models-to-Huynh-Nguyen/f96cae24d992d7bcd44a99baa2ecd80e713271cc#related-papers). Titled: Job Prediction: From Deep Neural Network Models to Applications
 Which the Sematic Scholar gives these three papers as 'Relevant Papers':
