@@ -132,7 +132,7 @@ https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/note
 
 And we are currently working on a subset that contains only Medline/Pubmed papers
 
-https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/medical_preprocessing.ipynb
+https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/data/medical_preprocessing.ipynb
 
 Our filtering isn't pefect, and there are papers that shouldn't be in our subsets, that aren't. 
 
@@ -176,9 +176,18 @@ And we used Keras for the overall architecture as well. The initial weights we u
 
 We used tf.data to handle our data pipeline, and we used TPUv3-8 provided by the TensorFlow Research Cloud to train over our data.
 
-https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/model.ipynb
+https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/training/model.ipynb
 
 #### Step 6: Inference
+
+At inference, a user inputs text that will be converted by our model into a test similarity vector (through Bert and its fully connected layer), and a similarity search will be performed against all of our papers' citation similarity vectors. While testing the embeddings, we found out that the abstract similarity vectors also give really great results, so we decided to search against both and return the results. 
+
+Our simple inference notebook can be found here 
+https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/DemoNaturalLanguageRecommendationsSimpleDemoCPU.ipynb
+
+Or, to test directly in colab:
+
+https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/DemoNaturalLanguageRecommendationsSimpleDemoCPU.ipynb
 
 We plan to eventually run inference on all 179 million papers on the Semantic Scholar Corpus, which is a ton of papers to run similarity search on.  So one of the members,  Srihari created a new library for running similarity search over large numbers of embeddings **over a TPU**!. We chose to do this on TPUs for their speed and memory capacity.  Currently, the package supports search using cosine similarity, but we plan to extend this to multiple distance metrics. The package is quite simple to use, here is a quick way to get started!
 ```
