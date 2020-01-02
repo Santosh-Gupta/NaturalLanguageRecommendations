@@ -189,6 +189,14 @@ Or, to test directly in colab:
 
 https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/DemoNaturalLanguageRecommendationsSimpleDemoCPU.ipynb
 
+We also have notebooks that can run inference over GPU and TPU. The notebook automatically detects which type of instance is running at initiazation, and sets the workers accordingly. 
+
+https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/build_index_and_search.ipynb
+
+Colab verison:
+
+https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/build_index_and_search.ipynb
+
 We plan to eventually run inference on all 179 million papers on the Semantic Scholar Corpus, which is a ton of papers to run similarity search on.  So one of the members,  Srihari created a new library for running similarity search over large numbers of embeddings **over a TPU**!. We chose to do this on TPUs for their speed and memory capacity.  Currently, the package supports search using cosine similarity, but we plan to extend this to multiple distance metrics. The package is quite simple to use, here is a quick way to get started!
 ```
 from tpu_index import TPUIndex
@@ -205,6 +213,12 @@ Check it out
 https://github.com/srihari-humbarwadi/tpu_index
 
 https://pypi.org/project/tpu-index/
+
+Test it out
+
+https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/tpu_index_search_million_embeddings.ipynb
+
+https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/tpu_index_search_million_embeddings.ipynb
 
 ## Side Quest 
 
