@@ -115,7 +115,7 @@ https://tensorboard.dev/experiment/rPYkizsLTWOpua3cyePkIg/#scalars
 https://tensorboard.dev/experiment/dE1MpRHvSd2XMltMrwqbeA/#scalars
 
 <p align="center">
-  <img src="images/TensorBoard.JPG" width="80%">
+  <img src="images/TensorBoard.JPG" width="70%">
 </p>
 
 A link to the model training notebook can be found here 
