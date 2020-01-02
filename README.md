@@ -197,8 +197,23 @@ https://github.com/srihari-humbarwadi/tpu_index
 
 https://pypi.org/project/tpu-index/
 
+### Side Quest 
 
-## Some initial success
+Eventually, we are going to be working with 179 million research paper embeddings, each of dimension 512, and we're going to run similarity on all of them. This can be very computational resource and time consuming. There are libraries for this, like Faiss, but as we were getting to know how to utilize TPUs, Srihari came up with an idea of running cos similarity indexing over TPUs, and made a library around it.
+
+Check it out
+
+https://github.com/srihari-humbarwadi/tpu_index
+
+https://pypi.org/project/tpu-index/
+
+Try it out
+
+https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/tpu_index_search_million_embeddings.ipynb
+
+Ultrafast indexing, powered by TPUs, no loss in quality.
+
+### Some initial success
 
 It was recently found by one of our members a perfect example of how our solution compares to an established one such the Semantic Sholar Corpus. For this [paper](https://www.semanticscholar.org/paper/Job-Prediction%3A-From-Deep-Neural-Network-Models-to-Huynh-Nguyen/f96cae24d992d7bcd44a99baa2ecd80e713271cc#related-papers). Titled: Job Prediction: From Deep Neural Network Models to Applications
 Which the Sematic Scholar gives these three papers as 'Relevant Papers':
