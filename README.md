@@ -134,6 +134,22 @@ After the embeddings pass through the fully connected layers, the resulting embe
 The papers used for this project were cleaned from Semantic Scholar's Open Corpus. 
 Link to the cleaned data used: https://drive.google.com/open?id=1PcdLDJUXoVXorlCTcGlM98GllArk5Z9s
 
+## Motivation
+
+Scientific information retrieval has been my biggest fascination for several years now (and now some our members share the same interest!), and it started with my research positions in biomedical research, where one of the greatest areas of friction was the difficulty in finding all the research that was relevant to my projects. This is a very common issue with researchers, especially in chem/bio/medical research due to the huge variations in terms and phrasing.
+
+To CS people, I use this example to describe what it’s like searching for information in chem/bio: imagine that StackOverflow doesn’t exist, and there’s no unified documentation for any platform, framework, or library; and all the documentation that’s available has variation in terminology and phrasing. Imagine how slow development is in these circumstances. Imagine what the state of the internet, software, hardware would be under these circumstances. That’s the type of friction that research in chemistry and biology is dealing with right now; the world is missing out on a ton of amazing scientific progress because of this friction.
+
+There were many times where I would stumble upon a very relevant paper, months after I had completed a project it was relevant to. Not only does this type of friction slow down research, it stifles creativity and the imagination towards the goals these researchers have.
+
+The latest advancements in NLP has the potential to significantly reduce this sort of friction. Vector representation of queries and documents reduces the dependency of a particular keyword or phrase for robust information retrieval. Vector representation is already being implemented into information retrieval systems at the highest levels; Earlier this year, Google announced that it is incorporating Bert into its main search engine, affecting up 10% of all search results.
+
+I think the potential for significant acceleration of scientific research makes this field an area very much worth pursuing. I have seen directly what the world is missing out on, and I suggest to anyone who looking for a particular focus in NLP, to consider scientific information retrieval. But you don't have to take my word for it, in 2017 IBM Watson found 96 cases of relevant treatment options in patients that doctors had overlooked [https://bigthink.com/stephen-johnson/ibms-watson-supercomputer-found-treatments-for-323-cancer-patients-that-human-experts-overlooked]
+
+I feel that its import to pursue as many varied information retrieval techniques/models as possible. Although many of these models will overlap, the most import aspect is if a model can find papers that the other models left behind. This becomes increasing important for very difficult topics to search. And often, 1 paper can have a huge impact on the direction of a project.
+
+For the Semantic Scholar Corpus, we found a very unique way of modeling information retrieval. The corpus has citation network data, and abstracts. We were able to correlate text encodings to the citation networks.
+
 ## Our Amazing Chaotic Journey (How we did it)
 
 #### Step 1: Filter the Semantic Scholar Corpus
