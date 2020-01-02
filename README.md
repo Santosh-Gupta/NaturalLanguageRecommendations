@@ -72,7 +72,6 @@ with strategy.scope():
     val_dataset = val_dataset.repeat()
     val_dataset = val_dataset.prefetch(autotune)
 
-tf.data.experimental.get_structure(train_dataset), tf.data.experimental.get_structure(val_dataset)
 ```
 
 <p align="center">
@@ -97,7 +96,24 @@ if tpu:
 ```
 with strategy.scope():
     train_files = tf.data.Dataset.list_files(tfrecords_pattern_train)
-```
+    train_dataset = train_files.interleave(tf.data.TFRecordDataset,
+                                           cycle_length=32,
+                                           block_length=4,
+                                           num_parallel_calls=autotune)
+    train_dataset = train_dataset.map(parse_example, num_parallel_calls=autotune)
+    train_dataset = train_dataset.batch(batch_size, drop_remainder=True)
+    train_dataset = train_dataset.repeat()
+    train_dataset = train_dataset.prefetch(autotune)
+
+    val_files = tf.data.Dataset.list_files(tfrecords_pattern_val)
+    val_dataset = val_files.interleave(tf.data.TFRecordDataset,
+                                       cycle_length=32,
+                                       block_length=4,
+                                       num_parallel_calls=autotune)
+    val_dataset = val_dataset.map(parse_example, num_parallel_calls=autotune)
+    val_dataset = val_dataset.batch(batch_size, drop_remainder=True)
+    val_dataset = val_dataset.repeat()
+    val_dataset = val_dataset.prefetch(autotune)```
 
 ```
 with strategy.scope():
