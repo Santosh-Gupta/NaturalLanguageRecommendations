@@ -132,10 +132,8 @@ After the embeddings pass through the fully connected layers, the resulting embe
 
 Putting it all together
 
-
-
 <p align="center">
-  <img src="images/NaturalLanguageRecommendationsUpdated2.png" width="60%">
+  <img src="images/NaturalLanguageRecommendationsUpdated2.png" width="50%">
 </p>
 
 ## Paper Data
