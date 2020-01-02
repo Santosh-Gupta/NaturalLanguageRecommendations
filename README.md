@@ -3,13 +3,13 @@
 # Natural Language Recommendations : A novel research paper search engine developed entirely with embedding and transformer models. 
 
 <p align="center">
-  <img src="https://i.imgur.com/r7SZcEt.png">
+  <img src="images/https://i.imgur.com/r7SZcEt.png">
 </p>
 
 ### Architecture 
 
 <p align="center">
-  <img src="NLRLongerNoBanner.gif">
+  <img src="images/NLRLongerNoBanner.gif">
 </p>
 
 The architecture is one part word2vec, one part Bert as a text encoder. I previously explored Bert medical text encodings in a previous project [https://github.com/re-search/DocProduct] and was impressed by the effectiveness at correlating medical questions with answers. In this project, we use the abstract of each paper as the input, but instead of using another Bert encoding as a label, we use a vector that was trained using word2vec. The Semantic Scholar Corpus [https://api.semanticscholar.org/corpus/] contains 179 million papers, and for each paper, it has the paper IDs of papers that it either cited, or papers that referenced that paper. 
@@ -18,7 +18,7 @@ This network of citations can be trained on using the word2vec algorithm. Each e
 
 
 <p align="center">
-  <img src="architecturePart1.JPG">
+  <img src="images/architecturePart1.JPG">
 </p>
 
 Our word2vec training notebooks can be found here https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/tree/master/notebooks/training
@@ -27,10 +27,10 @@ Next, the abstracts are fed into Bert. The embeddings for the last hidden layer 
 
 
 <p align="center">
-  <img src="architecturePart2.JPG">
+  <img src="images/architecturePart2.JPG">
 </p>
 
-The notebook that we used to convert the abstracts to bert input ids, and make a dataset with the input ids and paper vectors to tfrecords files can be found here 
+The notebook that we used to convert the abstracts to bert input ids, and make a dataset with the input ids and paper vectors to tfrecords files can be found here: 
 
 https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/data/CreateCS_tfrecordsDataSet4Bert_github.ipynb
 
@@ -62,10 +62,10 @@ tf.data.experimental.get_structure(train_dataset), tf.data.experimental.get_stru
 ```
 
 <p align="center">
-  <img src="architecturePart3.JPG">
+  <img src="images/architecturePart3.JPG">
 </p>
 
-Another challenge we ran into is the training time for the data. We were developing this project for the TFWorld hackathon [https://tfworld.devpost.com/] whose deadline was dec 31st, but we had only finished processing the data a few days before. We had 1.26 million training example, and our architecture contained a whole Bert model, which is Not super fast to train on. Luckily, we has access to TPUs, which were ultrafast, **1 epoch taking 20-30 minutes each!** Not only were we able to compete training on the data, we were able to run several hyperparameter experiments on the data before the deadline. 
+Another challenge we ran into is the training time for the data. We were developing this project for the TFWorld hackathon [https://tfworld.devpost.com/] whose deadline was dec 31st, but we had only finished processing the data a few days before. We had 1.26 million training example, and our architecture contained a whole Bert model, which is *not super fast to train on*. Luckily, we had access to TPUs, which were ultrafast; **1 epoch taking 20-30 minutes each!** Not only were we able to complete training on the data, we were able to run several hyperparameter experiments on the data before the deadline. 
 
 ```
 try:
@@ -101,19 +101,19 @@ https://tensorboard.dev/experiment/rPYkizsLTWOpua3cyePkIg/#scalars
 https://tensorboard.dev/experiment/dE1MpRHvSd2XMltMrwqbeA/#scalars
 
 <p align="center">
-  <img src="TensorBoard.JPG">
+  <img src="images/TensorBoard.JPG">
 </p>
 
 A link to the model training notebook can be found here 
 
 https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/training/model.ipynb
 
-Watching the first Tensorboard training was like watching a NASA launch. At the time of the first training, we spent nearly 2 months on the project. There was some worry that the data may not train well. There may have been something wrong with the data. Maybe we picked the wrong hyperparameters, etc. We all sat around, nerviously waiting for each 20 minute epoch increment, hoping the loss would go do. And then it did. And then it did again, and again. And again. 
+Watching the first Tensorboard training was like watching a NASA launch. At the time of the first training, we spent nearly 2 months on the project. There was some worry that the data may not train well. There may have been something wrong with the data (which actually occured the first time we trained word2vec). Maybe we picked the wrong hyperparameters, etc. We all sat around, nerviously waiting for each 20 minute epoch increment, hoping the validation loss would go down. **And then it did.** And then it did again, and again. And again. 
 
 After the embeddings pass through the fully connected layers, the resulting embeddings are all dot product'd with each other. For each paper, a softmax was taken for each of it's dot products. Finally, cross-entropy loss was performed on these logits, with a label of 1 for each original input/output pair for that training example, and 0 for all other combinations. 
 
 <p align="center">
-  <img src="architecturePart4.JPG">
+  <img src="images/architecturePart4.JPG">
 </p>
 
 ### Paper Data
@@ -204,12 +204,12 @@ It was recently found by one of our members a perfect example of how our solutio
 Which the Sematic Scholar gives these three papers as 'Relevant Papers':
 
 <p align="center">
-  <img src="Relevant Paper Comparison.jpg">
+  <img src="images/Relevant Paper Comparison.jpg">
 </p>
 
 And our model was able to find:
 <p align="center">
-  <img src="Our Paper Comparison.jpg">
+  <img src="images/Our Paper Comparison.jpg">
 </p>
 
 Although our model also shows non-relevant results to using machine learning in job matching and modeling this does show the capibilities of our model in being able to find rarer or more obscure papers that have less academic papers written on the subject.
