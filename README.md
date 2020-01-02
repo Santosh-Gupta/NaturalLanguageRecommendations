@@ -114,6 +114,7 @@ with strategy.scope():
     val_dataset = val_dataset.batch(batch_size, drop_remainder=True)
     val_dataset = val_dataset.repeat()
     val_dataset = val_dataset.prefetch(autotune)```
+```
 
 ```
 with strategy.scope():
@@ -254,6 +255,11 @@ https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommenda
 ## Side Quest 
 
 We plan to eventually run inference on all 179 million papers on the Semantic Scholar Corpus, each which will have a 512 dimensional vector, which is a ton of papers to run similarity search on.  This can be very computational resource and time consuming. There are libraries for this, like Faiss, but as we were getting to know how to utilize TPUs, Srihari came up with an idea of running cos similarity indexing over TPUs; and he created a new library for this!
+
+```
+!pip install tpu-index
+
+```
 
 ```
 from tpu_index import TPUIndex
