@@ -203,7 +203,9 @@ Or, to test directly in colab:
 
 https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/DemoNaturalLanguageRecommendationsSimpleDemoCPU.ipynb
 
-We also have notebooks that can run inference over GPU and TPU. The notebook automatically detects which type of instance is running at initiazation, and sets the workers accordingly. 
+The notebook Above uses colab forms to hide most of the code, you can double click on any of the cell boxes to see the code. The inference runs on a CPU. 
+
+For those who would like to test out inference on a GPU or even a TPU, the notebook Below automatically detects which type of instance is running at initiazation, and sets the workers accordingly. 
 
 https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/build_index_and_search.ipynb
 
@@ -211,7 +213,10 @@ Colab verison:
 
 https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/build_index_and_search.ipynb
 
-We plan to eventually run inference on all 179 million papers on the Semantic Scholar Corpus, which is a ton of papers to run similarity search on.  So one of the members,  Srihari created a new library for running similarity search over large numbers of embeddings **over a TPU**!. We chose to do this on TPUs for their speed and memory capacity.  Currently, the package supports search using cosine similarity, but we plan to extend this to multiple distance metrics. The package is quite simple to use, here is a quick way to get started!
+## Side Quest 
+
+We plan to eventually run inference on all 179 million papers on the Semantic Scholar Corpus, each which will have a 512 dimensional vector, which is a ton of papers to run similarity search on.  This can be very computational resource and time consuming. There are libraries for this, like Faiss, but as we were getting to know how to utilize TPUs, Srihari came up with an idea of running cos similarity indexing over TPUs; and he created a new library for this!
+
 ```
 from tpu_index import TPUIndex
 
@@ -221,6 +226,8 @@ index.create_index(vectors)  # vectors = numpy array, shape == [None, None]
 ...
 D, I = index.search(xq, distance_metric='cosine', top_k=5)
 ```
+
+We chose to do this on TPUs for their speed and memory capacity.  Currently, the package supports search using cosine similarity, but we plan to extend this to multiple distance metrics. The package is quite simple to use, here is a quick way to get started!
 
 Check it out 
 
@@ -233,20 +240,6 @@ Test it out
 https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/tpu_index_search_million_embeddings.ipynb
 
 https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/tpu_index_search_million_embeddings.ipynb
-
-## Side Quest 
-
-Eventually, we are going to be working with 179 million research paper embeddings, each of dimension 512, and we're going to run similarity on all of them. This can be very computational resource and time consuming. There are libraries for this, like Faiss, but as we were getting to know how to utilize TPUs, Srihari came up with an idea of running cos similarity indexing over TPUs, and made a library around it.
-
-Check it out
-
-https://github.com/srihari-humbarwadi/tpu_index
-
-https://pypi.org/project/tpu-index/
-
-Try it out
-
-https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/tpu_index_search_million_embeddings.ipynb
 
 Ultrafast indexing, powered by TPUs, no loss in quality.
 
