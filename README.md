@@ -269,6 +269,8 @@ Ultrafast indexing, powered by TPUs, no loss in quality.
 
 One of the main motivations of this project is to find papers that are highly relevant to a search query. We'll be testing the model out in the next couple weeks, and will post interesting case studies here. 
 
+### Case 1
+
 It was recently found by one of our members a perfect example of how our solution compares to an established one such the Semantic Sholar Corpus. For this [paper](https://www.semanticscholar.org/paper/Job-Prediction%3A-From-Deep-Neural-Network-Models-to-Huynh-Nguyen/f96cae24d992d7bcd44a99baa2ecd80e713271cc#related-papers). Titled: Job Prediction: From Deep Neural Network Models to Applications
 Which the Sematic Scholar gives these three papers as 'Relevant Papers':
 
@@ -282,6 +284,50 @@ And our model was able to find:
 </p>
 
 Although our model also shows non-relevant results to using machine learning in job matching and modeling this does show the capibilities of our model in being able to find rarer or more obscure papers that have less academic papers written on the subject.
+
+### Case 2
+
+query = 'job prediction with machine learning'
+
+Top 5 results for Semantic Scholar 
+
+https://www.semanticscholar.org/search?q=job%20prediction%20with%20machine%20learning&sort=relevance
+
+Introduction to machine learning https://www.semanticscholar.org/paper/Introduction-to-machine-learning-Alpaydin/0359bba5112d472206d82ddb29947f2d634bb0cc
+
+Large-Scale Machine Learning with Stochastic Gradient Descent https://www.semanticscholar.org/paper/Large-Scale-Machine-Learning-with-Stochastic-Bottou/fbc6562814e08e416e28a268ce7beeaa3d0708c8
+
+Link prediction using supervised learning https://www.semanticscholar.org/paper/Link-prediction-using-supervised-learning-Hasan-Chaoji/413240adfbcb801b5eb186b8a9e67fe77588733c
+
+Gaussian processes for machine learning https://www.semanticscholar.org/paper/Gaussian-processes-for-machine-learning-Rasmussen-Williams/82266f6103bade9005ec555ed06ba20b5210ff22
+
+Applications of Machine Learning in Cancer Prediction and Prognosis https://www.semanticscholar.org/paper/Applications-of-Machine-Learning-in-Cancer-and-Cruz-Wishart/7e7b9f37ce280787075046727efbaf9b5a390729
+
+Top results for Natural Language Recommendations 
+
+Using abstract similarity 
+
+Bejo: Behavior Based Job Classification for Resource Consumption Prediction in the Cloud https://www.semanticscholar.org/paper/f6913c1d255f236f7c4e2a810425d33256cf3d84
+
+Random Forest Forecast (RFF): One hour ahead jobs in volunteer grid https://www.semanticscholar.org/paper/c770ccd5ae0809139bc13cc82356f0b132c24433
+
+Analysis of XDMoD/SUPReMM Data Using Machine Learning Techniques https://www.semanticscholar.org/paper/09af1a0185955c3aea1692972296c697f0c5b7ee
+
+Job Recommendation System based on Machine Learning and Data Mining Techniques using RESTful API and Android IDE https://www.semanticscholar.org/paper/fe661340e332779f8c40dca713011f0fad938688
+
+Machine Learning Based Prediction and Classification of Computational Jobs in Cloud Computing Centers https://www.semanticscholar.org/paper/e1b11d29b7bba8b6048439ebbb8ee26700d702a1
+
+Using citation similarity (these results aren't as good; citation similarity only seems to do well with longer inputs, 100+ words)
+
+A signal processing method to eliminate grating lobes https://www.semanticscholar.org/paper/0bc3f599347ae37b530b79e7e7458dca8208aef1
+
+Multi- and Single-output Support Vector Regression for Spectral Reflectance Recovery https://www.semanticscholar.org/paper/c6e0cbbee2745650823407d2237e511fea6578c7
+
+Space-vector PWM voltage control with optimized switching strategy https://www.semanticscholar.org/paper/795e517f8951daefc920fbec291261374dc9ee14
+
+Pole position problem for Meixner filters
+https://www.semanticscholar.org/paper/179a4bf74953c5111abd4de1f31e0f163d48fd22
+
 
 ## Unfinished Business (future work)
 
