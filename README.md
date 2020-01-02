@@ -337,7 +337,6 @@ Description: Testing the tfrecord writer class.
 #### [TF2.0 Word2Vec CBOW.ipynb](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/training/TF2.0%20Word2Vec%20CBOW.ipynb)
 Description: The original Word2Vec model implemented in Keras.
 
-
 ### Python files
 
 #### [tfrecordwriter.py](https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/src/TFrecordWriter.py)
@@ -350,3 +349,7 @@ Description: This is the training code for the BERT model, which is designed to 
 
 #### [tpu_index](https://github.com/srihari-humbarwadi/tpu_index)
 Description: TPU Index is a package that we came up with for the community to use for fast similarity search over large collections of high dimension vectors on TPUs.
+
+## Questions, Comments, Collaborations, Feedback? 
+
+Research2vec@gmail.com 
