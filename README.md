@@ -287,8 +287,6 @@ Test it out
 
 https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/tpu_index_search_million_embeddings.ipynb
 
-https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/tpu_index_search_million_embeddings.ipynb
-
 Ultrafast indexing, powered by TPUs, no loss in quality.
 
 ## Case Studies (More coming soon)
@@ -434,7 +432,6 @@ On tests of radial symmetry for bivariate copulas https://www.semanticscholar.or
 Using citation similarity
 
 None of the results using citation similarity were relevant. Again, it doesn't really do well unless the queries are over 100 words. 
-
 
 
 
