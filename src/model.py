@@ -8,7 +8,7 @@ print('TensorFlow:', tf.__version__)
 
 try:
     tpu = tf.distribute.cluster_resolver.TPUClusterResolver(
-        'srihari-1-tpu')  # TPU detection
+        'srihari-1-tpu')
     print('Running on TPU ', tpu.cluster_spec().as_dict()['worker'])
 except ValueError:
     tpu = None
@@ -31,8 +31,9 @@ val_steps = train_steps // 10
 epochs = 100
 print('Batch Size:', batch_size)
 
-base_dir = 'gs://tfworld'
-model_dir = os.path.join(base_dir, 'model_files_2')
+config_name = 'model_a'
+base_dir = 'gs://tfworld/hparams_search'
+model_dir = os.path.join(base_dir, config_name)
 tensorboard_dir = os.path.join(model_dir, 'logs_' + str(time()))
 tfrecords_pattern_train = os.path.join(base_dir, 'tfrecords', 'train*')
 tfrecords_pattern_val = os.path.join(base_dir, 'tfrecords', 'eval*')
@@ -97,7 +98,7 @@ def loss_fn(_, probs):
                                               from_logits=False)
 
 
-def create_model(drop_out):
+def create_model(drop_out, dense_units, activation):
     textIds = tf.keras.Input(
         shape=(512,), dtype=tf.int32)    # from bert tokenizer
     # normalized word2vec outputs
@@ -108,13 +109,15 @@ def create_model(drop_out):
 
     textOut = bert_model(textIds)
     textOutMean = tf.reduce_mean(textOut[0], axis=1)
-    textOutSim = Dense(units=embedding_dim, activation='tanh',
+    textOutSim = Dense(units=embedding_dim, activation=activation,
                        name='DenseTitle')(textOutMean)
     textOutSim = Dropout(drop_out)(textOutSim)
 
-    citationSim = Dense(units=embedding_dim, activation='tanh',
-                        name='DenseCitation')(citation)
-    citationSim = Dropout(drop_out)(citationSim)
+    citationSim = citation
+    for units in dense_units:
+      citationSim = Dense(units=units, activation=activation,
+                          name='DenseCitation')(citationSim)
+      citationSim = Dropout(drop_out)(citationSim)
 
     # Get dot product of each of title x citation combinations
     dotProduct = tf.reduce_sum(tf.multiply(
@@ -126,9 +129,13 @@ def create_model(drop_out):
     model = tf.keras.Model(inputs=[textIds, citation], outputs=[probs])
     return model
 
-
+config = {
+  'drop_out':0.2,
+  'dense_units':[512, 512],
+  'activation':'tanh'
+}
 with strategy.scope():
-    model = create_model(drop_out=0.20)
+    model = create_model(**config)
     model.compile(loss=loss_fn,
                   optimizer=tf.keras.optimizers.Adam(learning_rate=3e-5))
 
