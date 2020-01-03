@@ -77,9 +77,6 @@ with strategy.scope():
     val_dataset = val_dataset.repeat()
     val_dataset = val_dataset.prefetch(autotune)
 
-tf.data.experimental.get_structure(
-    train_dataset), tf.data.experimental.get_structure(val_dataset)
-
 
 @tf.function
 def loss_fn(_, probs):
