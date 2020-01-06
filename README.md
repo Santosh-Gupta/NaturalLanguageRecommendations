@@ -252,6 +252,10 @@ Colab verison:
 
 https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/build_index_and_search.ipynb
 
+If you like using TPUs to perform similarity search, we created a library just for this (we predict are group is going to need to do this, alot). Here is a notebook which incorporated our library TPU-Index, for similarity search. 
+
+https://colab.research.google.com/drive/1wkrilS34nC4kBNEPA1bT0GOJJ8-NRzfJ
+
 ## Side Quest 
 
 <p align="center">
@@ -277,15 +281,21 @@ D, I = index.search(xq, distance_metric='cosine', top_k=5)
 
 We chose to do this on TPUs for their speed and memory capacity.  Currently, the package supports search using cosine similarity, but we plan to extend this to multiple distance metrics. The package is quite simple to use, here is a quick way to get started!
 
-Check it out 
+Check it out: 
 
 https://github.com/srihari-humbarwadi/tpu_index
 
 https://pypi.org/project/tpu-index/
 
-Test it out
+https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/TpuIndex_build_index_and_search.ipynb
 
 https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/tpu_index_search_million_embeddings.ipynb
+
+Test it out with our Colab Notebooks 
+
+https://colab.research.google.com/drive/1wkrilS34nC4kBNEPA1bT0GOJJ8-NRzfJ
+
+https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/tpu_index_search_million_embeddings.ipynb
 
 Ultrafast indexing, powered by TPUs, no loss in quality.
 
