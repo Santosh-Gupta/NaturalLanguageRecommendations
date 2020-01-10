@@ -262,6 +262,10 @@ https://colab.research.google.com/drive/1wkrilS34nC4kBNEPA1bT0GOJJ8-NRzfJ
   <img src="https://i.imgur.com/BJdZE21.png">
 </p>
 
+<p align="center">
+  <b>Ultrafast indexing, powered by TPUs</b>
+</p>
+
 We plan to eventually run inference on all 179 million papers on the Semantic Scholar Corpus, each which will have a 512-dimensional vector, which is a ton of papers to run similarity search on.  This can be a very computational resource and time-consuming. There are libraries for this, like Faiss, but as we were getting to know how to utilize TPUs, Srihari came up with an idea of running cos similarity indexing over TPUs; and he created a new library for this!
 
 ```
@@ -279,9 +283,13 @@ index.create_index(vectors)  # vectors = numpy array, shape == [None, None]
 D, I = index.search(xq, distance_metric='cosine', top_k=5)
 ```
 
-We chose to do this on TPUs for their speed and memory capacity.  Currently, the package supports search using cosine similarity, but we plan to extend this to multiple distance metrics. The package is quite simple to use, here is a quick way to get started!
+We chose to do this on TPUs for their speed and memory capacity.  Currently, the package supports search using cosine similarity, but we plan to extend this to multiple distance metrics. 
 
-Check it out: 
+Currently, Google Colab has v2-8 TPUs, which have 8 gigs per core (64 gigs total). This instance can handle about 19 to 22 million float32 embeddings of size 512 (this seems to vary among depending on what chunk size we use to append the vectors, we can't pin point why). **For 19.5 million embeddings, it takes 1.017 seconds for a single cos similarity search.** 
+
+We recommend adding embeddings of this size in chunks of 750,000, otherwise a memory error could occur. While appending the vectors. We find that smaller chunk sizes may result in a larger number of vectors that the index can hold. 
+
+The package is quite simple to use, check it out: 
 
 https://github.com/srihari-humbarwadi/tpu_index
 
@@ -293,11 +301,11 @@ https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/note
 
 Test it out with our Colab Notebooks 
 
+Test our model
 https://colab.research.google.com/drive/1wkrilS34nC4kBNEPA1bT0GOJJ8-NRzfJ
 
-https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/tpu_index_search_million_embeddings.ipynb
-
-Ultrafast indexing, powered by TPUs, no loss in quality.
+Demo of a cos similarity search on 19.5 million float32 embeddings of size 512; average search time 1.017 seconds. 
+https://colab.research.google.com/drive/1ULxK5esPJVvy7BmQx8j_6koGLMzVEDLy
 
 ## Case Studies (More coming soon)
 
