@@ -244,7 +244,7 @@ https://github.com/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/note
 
 Or, to test directly in colab:
 
-https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/DemoNaturalLanguageRecommendationsSimpleDemoCPU.ipynb
+https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/DemoNaturalLanguageRecommendationsCPU_Autofeedback.ipynb
 
 The notebook Above uses colab forms to hide most of the code, you can double click on any of the cell boxes to see the code. The inference runs on a CPU. 
 
