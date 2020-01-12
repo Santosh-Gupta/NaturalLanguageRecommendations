@@ -8,11 +8,15 @@
 
 ## Try it out, NOW
 
-https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/DemoNaturalLanguageRecommendationsSimpleDemoCPU.ipynb
+https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/DemoNaturalLanguageRecommendationsCPU_Autofeedback.ipynb
 
 Run the first cell of the colab notebook to download and load the models and data. There there's about 8 gigs total to download and load in the first cell, so this cell will take several minutes to run. After it has finished running, it'll be ready to take your queries. 
 
 The model was trained on abstracts for input, so it does the best on inputs of ~100 words, but does pretty well on short 1-sentence queries as well. 
+
+The Colab notebook above automatically and anonymously records queries, which will be used to improve future versions of our model. If you do not wish to send queries automatically, use this version, which will only send feedback manually:
+
+https://colab.research.google.com/github/Santosh-Gupta/NaturalLanguageRecommendations/blob/master/notebooks/inference/DemoNaturalLanguageRecommendationsCPU_Manualfeedback.ipynb
 
 <p align="center">
   <img src="images/SampleNLRresults.JPG" width="80%">
