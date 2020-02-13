@@ -524,6 +524,12 @@ Description: This is the training code for the BERT model, which is designed to 
 #### [tpu_index](https://github.com/srihari-humbarwadi/tpu_index)
 Description: TPU Index is a package that we came up with for the community to use for fast similarity search over large collections of high dimension vectors on TPUs.
 
+## Authors 
+
+### Santosh Gupta
+
+Santosh is a former Biomedical Engineer, current Machine Learning Engineer. His favorite area in machine learning is using the latest advancements in NLP for better scientific information retrieval. You can follow him on twitter here https://twitter.com/SantoshStyles
+
 ## Questions, Comments, Collaborations, Feedback? 
 
 Research2vec@gmail.com 
