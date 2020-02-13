@@ -530,6 +530,10 @@ Description: TPU Index is a package that we came up with for the community to us
 
 Santosh is a former Biomedical Engineer, current Machine Learning Engineer. His favorite area in machine learning is using the latest advancements in NLP for better scientific information retrieval. You can follow him on twitter here https://twitter.com/SantoshStyles
 
+### Akul Vohra
+
+Akul is a junior in high school and is interested in NLP research. He would like to pursue cognitive science or computer science in the future and is happy to be a contributor in Natural Language Recommendations. Here is his portfolio: https://akul.org/
+
 ## Questions, Comments, Collaborations, Feedback? 
 
 Research2vec@gmail.com 
